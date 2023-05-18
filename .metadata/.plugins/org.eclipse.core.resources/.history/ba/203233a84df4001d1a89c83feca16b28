@@ -1,0 +1,145 @@
+package Controller;
+
+import java.util.HashMap;
+import java.util.ArrayList;
+
+public class DataUnitConverter {
+	private Double b;
+	private Double kb;
+	private Double mb;
+	private Double gb;
+	private Double tb;
+	private Double B;
+	private Double KB;
+	private Double MB;
+	private Double GB;
+	private Double TB;
+	public ArrayList<Double> units = new ArrayList<Double>();
+	StringBuilder sb = new StringBuilder();
+	
+	public DataUnitConverter(final String theNumber, final String theUnit) {
+		switch(theUnit) {
+			case "bits (b)": this.b = Double.parseDouble(theNumber);
+							 this.kb = this.b / 1000;
+							 this.mb = this.kb / 1000;
+							 this.gb = this.kb / 1000;
+							 this.tb = this.gb / 1000;
+							 this.B = this.b / 8;
+							 this.KB = this.B / Math.pow(2, 10);
+							 this.MB = this.KB / Math.pow(2, 10);
+							 this.GB = this.MB / Math.pow(2, 10);
+							 this.TB = this.GB / Math.pow(2, 10);
+			case "kilobits (kb)": this.kb = Double.parseDouble(theNumber);
+							 	  this.b = this.kb * 1000;
+							 	  this.mb = this.kb / 1000;
+							 	  this.gb = this.mb / 1000;
+							 	  this.B = this.b / 8;
+							 	  this.KB = this.b / Math.pow(2, 10);
+							 	  this.MB = this.KB / Math.pow(2, 10);
+								  this.GB = this.MB / Math.pow(2, 10);
+								  this.TB = this.GB / Math.pow(2, 10);
+			case "megabits (mb)": this.mb = Double.parseDouble(theNumber);
+								  this.b = this.mb * 1000000;
+								  this.kb = this.b / 1000;
+								  this.gb = this.mb / 1000;
+								  this.B = this.b / 8;
+								  this.KB = this.b / Math.pow(2, 10);
+								  this.MB = this.KB / Math.pow(2, 10);
+								  this.GB = this.MB / Math.pow(2, 10);
+								  this.TB = this.GB / Math.pow(2, 10);
+			case "gigabits (gb)": this.gb = Double.parseDouble(theNumber);
+								  this.mb = this.gb * 1000;
+								  this.kb = this.mb * 1000;
+								  this.b = this.kb * 1000;
+								  this.B = this.b / 8;
+								  this.KB = this.b / Math.pow(2, 10);
+								  this.MB = this.KB / Math.pow(2, 10);
+								  this.GB = this.MB / Math.pow(2, 10);
+								  this.TB = this.GB / Math.pow(2, 10);
+			case "terabits (tb)": this.tb = Double.parseDouble(theNumber);
+								  this.gb = this.tb * 1000;
+								  this.mb = this.gb * 1000;
+								  this.kb = this.mb * 1000;
+								  this.b = this.kb * 1000;
+								  this.B = this.b / 8;
+								  this.KB = this.B / 1000;
+								  this.MB = this.KB / 1000;
+								  this.GB = this.MB / 1000;
+								  this.TB = this.GB / 1000;
+			case "Bytes (B)": this.B = Double.parseDouble(theNumber);
+							  this.KB = this.B / 1000;
+							  this.MB = this.KB / 1000;
+							  this.GB = this.MB / 1000;
+							  this.TB = this.GB / 1000;
+							  this.b = this.B * 8;
+							  this.kb = this.b / 1000;
+							  this.mb = this.kb / 1000;
+							  this.gb = this.mb / 1000;
+							  this.tb = this.gb / 1000;
+			case "KiloBytes (KB)": this.KB = Double.parseDouble(theNumber);
+							 	   this.B = this.KB * 1000;
+							 	   this.MB = this.KB / 1000;
+							 	   this.GB = this.MB / 1000;
+							 	   this.TB = this.GB / 1000;
+							 	   this.b = this.B * 8;
+							 	   this.kb = this.b / 1000;
+							 	   this.mb = this.kb / 1000;
+							 	   this.gb = this.mb / 1000;
+							 	   this.tb = this.gb / 1000;
+			case "MegaBytes (MB)": this.MB = Double.parseDouble(theNumber);
+							 	   this.KB = this.MB * 1000;
+							 	   this.B = this.KB * 1000;
+							 	   this.GB = this.MB / 1000;
+							 	   this.TB = this.GB / 1000;
+							 	   this.b = this.B / 8;
+							 	   this.kb = this.b / 1000;
+							 	   this.mb = this.kb / 1000;
+							 	   this.gb = this.mb / 1000;
+							 	   this.tb = this.gb / 1000;
+			case "GigaBytes (GB)": this.GB = Double.parseDouble(theNumber);
+							 	   this.TB = this.GB / 1000;
+							 	   this.MB = this.GB * 1000;
+							 	   this.KB = this.MB * 1000;
+							 	   this.B = this.KB * 1000;
+							 	   this.b = this.B * 8;
+							 	   this.kb = this.b / 1000;
+							 	   this.mb = this.kb / 1000;
+							 	   this.gb = this.mb / 1000;
+							 	   this.tb = this.gb / 1000;
+			case "TeraBytes (TB)": this.TB = Double.parseDouble(theNumber);
+							 	   this.GB = this.TB * 1000;
+							 	   this.MB = this.GB * 1000;
+							 	   this.KB = this.MB * 1000;
+							 	   this.B = this.KB * 1000;
+							 	   this.b = this.B * 8;
+							 	   this.kb = this.b / 1000;
+							 	   this.mb = this.kb / 1000;
+							 	   this.gb = this.mb / 1000;
+							 	   this.tb = this.gb / 1000;
+		}
+		convertedUnits(theNumber, theUnit);
+	}
+	
+	public void convertedUnits(final String theNumber, final String theUnit) {
+		this.sb.append(this.b);
+		this.sb.append('\n');
+		this.sb.append(this.kb);
+		this.sb.append('\n');
+		this.sb.append(this.mb);
+		this.sb.append('\n');
+		this.sb.append(this.gb);
+		this.sb.append('\n');
+		this.sb.append(this.tb);
+		this.sb.append('\n');
+		this.sb.append(this.B);
+		this.sb.append('\n');
+		this.sb.append(this.KB);
+		this.sb.append('\n');
+		this.sb.append(this.MB);
+		this.sb.append('\n');
+		this.sb.append(this.GB);
+		this.sb.append('\n');
+		this.sb.append(this.TB);
+	}
+
+}

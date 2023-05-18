@@ -1,0 +1,196 @@
+package View;
+
+import javax.swing.*;
+
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+
+import Controller.DataUnitConverter;
+
+public class BandwidthView extends JFrame
+{
+    JFrame calc;
+    JPanel cards;
+
+    public BandwidthView()
+    {
+        prepareFrame();
+        prepareMenu();
+    }
+
+    private void prepareFrame()
+    {
+        calc = new JFrame("Bandwidth Calculator");
+        cards = new JPanel(new CardLayout());
+        calc.setSize(400, 500);
+    }
+
+    private void prepareMenu()
+    {
+        String[] tools = {"Data Unit Converter", "Download/Upload Time Calculator",
+                          "Website Bandwidth Calculator", "Hosting Bandwidth Converter"};
+        JComboBox<String> menu = new JComboBox<>(tools);
+        JPanel panel = new JPanel();
+        menu.addActionListener(e -> {
+            JComboBox jcmbType = (JComboBox) e.getSource();
+            String cmbType = (String) jcmbType.getSelectedItem();
+            switch (cmbType) {
+
+                case "Data Unit Converter": Converter unit = new Converter();
+                break;
+
+                case "Download/Upload Time Calculator": DownloadUploadTimeCalculator downloadUpload = new DownloadUploadTimeCalculator();
+                break;
+
+                case "Website Bandwidth Calculator": WebsiteBandwidthCalculator bandwidthCalc = new WebsiteBandwidthCalculator();
+                break;
+
+                case "Hosting Bandwidth Converter": HostingBandwidthConverter bandwidthConvert = new HostingBandwidthConverter();
+                break;
+            }
+        });
+        panel.add(menu);
+        calc.getContentPane().add(panel, BorderLayout.PAGE_START);
+        calc.setVisible(true);
+    }
+
+
+    class Converter
+    {
+        String unitSelected;
+        DataUnitConverter duc;
+        JPanel card1;
+        JTextArea results;
+        
+        public Converter()
+        {
+            unitSelected = "";
+            this.card1 = new JPanel();
+            results = new JTextArea();
+        	results.setEditable(false);
+        	results.setColumns(30);
+            prepareComponents();
+            setFrame();
+        }
+
+        private void prepareComponents()
+        {
+            JTextField numberField = new JTextField(10);
+            numberField.setEditable(true);
+            this.card1.add(numberField);
+            String[] units = {"bits (b)", "kilobits (kb)", "megabits (mb)", "gigabits (gb)", "terabits (tb)",
+                              "Bytes (B)", "KiloBytes (KB)", "MegaBytes (MB)", "GigaBytes (GB)", "TeraBytes (TB)"};
+            JComboBox<String> unitMenu =  new JComboBox<>(units);
+            unitMenu.addActionListener(e -> {
+                JComboBox jcmbType = (JComboBox) e.getSource();
+                String cmbType = (String) jcmbType.getSelectedItem();
+                unitSelected = cmbType;
+            });
+            unitSelected = unitMenu.getSelectedItem().toString();
+            this.card1.add(unitMenu);
+            final JButton convert = new JButton("= ?");
+            convert.addActionListener(e -> {
+                if (e.getSource() == convert) {
+                    convertUnits(numberField);
+                }
+            });
+            this.card1.add(convert);
+            cards.add(this.card1);
+            calc.getContentPane().add(cards, BorderLayout.CENTER);
+        }
+        
+        
+        // TODO: FIX BUG - changing value, keeping unit, works but shows both.
+        //  			 - changing unit throws an exception
+        // refresh numberfield, unitselected, and results
+        private void convertUnits(final JTextField theNumber)
+        {
+        	String data = results.getText().trim();
+        	if (!data.equals("")) {
+        		this.card1.remove(results);
+        		this.card1.revalidate();
+        	}
+        	// number chosen by user and unit
+            JLabel txt = new JLabel();
+            txt.setText(theNumber.getText() + " " + unitSelected + " is equal to:");
+            this.card1.add(txt);
+            
+        	DataUnitConverter duc = new DataUnitConverter(theNumber.getText(), unitSelected);
+        	StringBuilder sb = new StringBuilder();
+        	ArrayList<String> arr = new ArrayList<String>();
+        	arr.add("bits (b)");
+        	arr.add("kilobits (kb)");
+        	arr.add("megabits (mb)");
+        	arr.add("gigabits (gb)");
+        	arr.add("terabits (tb)");
+        	arr.add("Bytes (B)");
+        	arr.add("KiloBytes (KB)");
+        	arr.add("MegaBytes (MB)");
+        	arr.add("GigaBytes (GB)");
+        	arr.add("TeraBytes (TB)");
+        	int i = 0;
+        	DecimalFormat df = new DecimalFormat("#");
+        	df.setMaximumFractionDigits(15);
+        	for (Double unit: duc.units) {
+        		sb.append(df.format(unit) + " " + arr.get(i) + "\n");
+        		i++;
+        	}
+        	
+            results.setText(sb.toString());
+            
+            this.card1.add(results);
+            cards.add(this.card1);
+            calc.getContentPane().add(cards, BorderLayout.PAGE_END);
+        }
+        
+//        public void itemStateChanged(ItemEvent evt) {
+//            CardLayout cl = (CardLayout)(cards.getLayout());
+//            cl.show(cards, (String)evt.getItem());
+//        }
+
+        
+        private void setFrame()
+        {
+            calc.setSize(400, 500);
+            calc.setVisible(true);
+        }
+    }
+
+    private class DownloadUploadTimeCalculator implements ActionListener
+    {
+
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+
+        }
+    }
+
+    private class WebsiteBandwidthCalculator implements ActionListener
+    {
+
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+
+        }
+    }
+
+    private class HostingBandwidthConverter implements ActionListener
+    {
+
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+
+        }
+    }
+}
