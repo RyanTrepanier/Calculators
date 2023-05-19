@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<item key="org.eclipse.egit.ui.internal.clone.GitSelectWizardPageWizardSel" value="0"/>
+	<item key="GitSelectRepositoryPage.lastRepository" value="/Users/ryan/git/repository/.git"/>
 	<list key="RepositorySelectionPage.UsedUris">
 		<item value="https://github.com/RyanTrepanier/Calculators.git"/>
 	</list>
@@ -16,5 +18,18 @@
 	</section>
 	<section name="GitCommitSearchPage">
 		<item key="HISTORY_SIZE" value="0"/>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.staging.StagingView">
+		<item key="MAIN_SASH_FORM_ORIENTATION_VERTICAL" value="false"/>
+		<item key="HORIZONTAL_SASH_FORM_WEIGHT" value="500,500"/>
+		<item key="STAGING_SASH_FORM_WEIGHT" value="500,500"/>
+		<item key="sortItemState" value="false"/>
+	</section>
+	<section name="GitCommitMessageComponent">
+		<list key="/Users/ryan/git/repository/.git">
+			<item value="empty"/>
+		</list>
+	</section>
+	<section name="GitImportWizard">
 	</section>
 </section>

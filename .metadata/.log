@@ -450,3 +450,6 @@ Binding(ALT+COMMAND+R,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.contexts.window,,cocoa,system)
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2023-05-18 16:24:52.931
+!MESSAGE close() called when useCnt is already zero for Repository[/Users/ryan/git/repository/.git]
